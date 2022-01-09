@@ -1,10 +1,12 @@
-/* theme */
 :root {
     --font-family: 'Open Sans', sans-serif;
-    --primary:#e74c3c;
-    --primary-dark:#c0392b;
-    --dark:#2c3e50;
+    --primary:#0984e3;
+    --primary-light: #74b9ff;
+    --secondary: #00b894;
+    --secondary-light: #55efc4;
+    --dark:#3d3d3d;
     --danger: #e74c3c;
+    --divider:#ecf0f1;
     --background-light: #ecf0f1;
     --text-color: #444;
     --text-color-light: #fff;
@@ -12,10 +14,10 @@
     ;
     --border: 0.063rem solid #eee;
 }
-/** Reset */
+
 html {
     box-sizing: border-box;
-    font-size: 10px;
+    font-size: 62.5%;
 }
 *, *::before, *::after {
     box-sizing: inherit;
@@ -25,6 +27,7 @@ body {
     padding: 0;
     font-family: var(--font-family);
     background-color: var(--background-light);
+    font-size: 1.2rem;
 }
 h1, p {
     margin: 0;
@@ -37,57 +40,21 @@ a {
     color: inherit;
     text-decoration: none;
 }
-/* Container */
 .container {
-    font-size: 1.6rem;
-    min-height: 100vh;
-    display: flex;
-    flex-flow: column;
-    color: var(--text-color);
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 5rem 1fr 5rem;
+    grid-template-areas: 
+        "hd hd hd"
+        "mn mn mn"
+        "ft ft ft"
+    ;
 }
-.overflow {
-    overflow: hidden;
+header { 
+    grid-area: hd; 
 }
-/* Text */
-.text-danger {
-    color: var(--danger);
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-/* Button */
-.btn {
-  background-color: white;
-  font-weight: 700;
-  color: var(--text-color);
-  font-size: 1.6rem;
-  border: 0;
-  padding: 0.625rem 0.938rem;
-  cursor: pointer;
-  border-radius: 0.188rem;
-  margin: 0 0.313rem;
-  box-shadow: var(--box-shadow);
-}
-.btn-primary {
-  background-color: var(--primary);
-  color: var(--text-color-light);
-}
-.btn-danger {
-  background-color: var(--danger);
-  color: var(--text-color-light);
-}
-.btn-small {
-    padding: 0.313rem 0.625rem;
-    font-size: 1.4rem;
-}
-.low-opacity{
-    opacity: 0.5;
-}
-.small {
-    font-size: 1.2rem;
-    margin: 0  0.5rem;
-}
-/** Header */
-header {
+.header-container {
     background-color: var(--primary);
     padding: 1.5rem;
     box-shadow: var(--box-shadow);
@@ -134,7 +101,6 @@ header {
 .header-mobile-icon{
     cursor: pointer;
 }
-
 @media only screen and (max-width: 800px) {
     .header-menu {
         display: none;
@@ -144,7 +110,10 @@ header {
     }
 }
 .header-menu li:hover {
-    background-color: var(--primary-dark);
+    background-color: #ffffff;
+    color: var(--dark);
+    font-weight: bold;
+    opacity: 0.2;
 }
 .active {
     background-color: var(--primary-dark);
@@ -167,28 +136,65 @@ li.header-profil {
 li.header-profil:hover {
     background-color: var(--dark);
 }
-/** Footer */
-footer {
-    background-color: var(--dark);
-    display: flex;
-    flex-flow: row-reverse;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-color-light);
-    padding: 1.5rem;
+main { 
+    grid-area: mn;
 }
-/* Content */
 .content {
-    max-width: 100rem;
+    max-width: 100%;
     width: 100%;
-    flex: 1;
-    display: flex;
-    flex-flow: column;
-    align-self: center;
-    align-items: center;
-    padding: 2rem 0;
+    height: 100%;
+    padding: 1rem;
+    margin-top: 2rem;
 }
-/* content */
+footer { 
+    grid-area: ft;
+    background-color: var(--primary); 
+    margin-top: 1rem;
+}
+.footer-container {
+    text-align: center;
+    padding-top: 2rem;
+    color: var(--text-color-light);
+}
+.overflow {
+    overflow: hidden;
+}
+.text-danger {
+    color: var(--danger);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.btn {
+  background-color: white;
+  font-weight: 400;
+  color: var(--text-color);
+  font-size: 1.6rem;
+  border: 0;
+  padding: 1rem;
+  cursor: pointer;
+  border-radius: 0.188rem;
+  margin: 0 0.313rem;
+  box-shadow: var(--box-shadow);
+}
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--text-color-light);
+}
+.btn-danger {
+  background-color: var(--danger);
+  color: var(--text-color-light);
+}
+.btn-small {
+    padding: 0.313rem 0.625rem;
+    font-size: 1.4rem;
+}
+.low-opacity{
+    opacity: 0.5;
+}
+.small {
+    font-size: 1.2rem;
+    margin: 0  0.5rem;
+}
 .form-container {
   display: flex;
   flex-flow: column;
@@ -226,16 +232,12 @@ footer {
   flex-flow: row nowrap;
   justify-content: flex-end;
 } 
-
-/* Block */
 .block {
     border-radius: 3px;
     border: var(--border);
     background-color: white;
     box-shadow: var(--box-shadow);
 }
-
-/* utils */
 .p20 {
     padding: 20px;
 }

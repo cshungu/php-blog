@@ -103,65 +103,67 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <body>
     <div class="container">
         <?php require_once "includes/header.php" ?>
-        <div class="content">
-            <div class="block p-20 form-container">
-                <h2> Inscription </h2>
-                <form action="/authRegister.php" method="POST">
-                    <div class="form-control">
-                        <label for="title">Prénom</label>
-                        <input type="text" name="firstname" id="firstname" value="<?php echo $firstname ?? '' ?>">
-                        <?php if ($errors["firstname"]) : ?>
-                            <p class="text-danger">
-                                <?php echo $errors["firstname"] ?>
-                            </p>
-                        <?php endif; ?>
-                    </div>
-                    <div class="form-control">
-                        <label for="lastname">Nom</label>
-                        <input type="text" name="lastname" id="lastname" value="<?php echo $lastname ?? '' ?>">
-                        <?php if ($errors["lastname"]) : ?>
-                            <p class="text-danger"><?php echo $errors["lastname"] ?></p>
-                        <?php endif; ?>
-                    </div>
-                    <div class="form-control">
-                        <label for="email">Email</label>
-                        <input type="text" name="email" id="email" value="<?php echo $email ?? '' ?>">
-                        <?php if ($errors["email"]) : ?>
-                            <p class="text-danger">
-                                <?php echo $errors["email"] ?>
-                            </p>
-                        <?php endif; ?>
-                    </div>
-                    <div class="form-control">
-                        <label for="password">Mot de passe</label>
-                        <input type="password" name="password" id="password">
-                        <?php if ($errors["password"]) : ?>
-                            <p class="text-danger"><?php echo $errors["password"] ?></p>
-                        <?php endif; ?>
-                    </div>
-                    <div class="form-control">
-                        <label for="confirmpassword">
-                            Confirmation Mot de passe
-                        </label>
-                        <input type="password" name="confirmpassword" id="confirmpassword">
-                        <?php if ($errors["confirmpassword"]) : ?>
-                            <p class="text-danger">
-                                <?php echo $errors["confirmpassword"] ?>
-                            </p>
-                        <?php endif; ?>
-                    </div>
+        <main>
+            <div class="content">
+                <div class="block p-20 form-container">
+                    <h2> Inscription </h2>
+                    <form action="/authRegister.php" method="POST">
+                        <div class="form-control">
+                            <label for="title">Prénom</label>
+                            <input type="text" name="firstname" id="firstname" value="<?php echo $firstname ?? '' ?>">
+                            <?php if ($errors["firstname"]) : ?>
+                                <p class="text-danger">
+                                    <?php echo $errors["firstname"] ?>
+                                </p>
+                            <?php endif; ?>
+                        </div>
+                        <div class="form-control">
+                            <label for="lastname">Nom</label>
+                            <input type="text" name="lastname" id="lastname" value="<?php echo $lastname ?? '' ?>">
+                            <?php if ($errors["lastname"]) : ?>
+                                <p class="text-danger"><?php echo $errors["lastname"] ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <div class="form-control">
+                            <label for="email">Email</label>
+                            <input type="text" name="email" id="email" value="<?php echo $email ?? '' ?>">
+                            <?php if ($errors["email"]) : ?>
+                                <p class="text-danger">
+                                    <?php echo $errors["email"] ?>
+                                </p>
+                            <?php endif; ?>
+                        </div>
+                        <div class="form-control">
+                            <label for="password">Mot de passe</label>
+                            <input type="password" name="password" id="password">
+                            <?php if ($errors["password"]) : ?>
+                                <p class="text-danger"><?php echo $errors["password"] ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <div class="form-control">
+                            <label for="confirmpassword">
+                                Confirmation Mot de passe
+                            </label>
+                            <input type="password" name="confirmpassword" id="confirmpassword">
+                            <?php if ($errors["confirmpassword"]) : ?>
+                                <p class="text-danger">
+                                    <?php echo $errors["confirmpassword"] ?>
+                                </p>
+                            <?php endif; ?>
+                        </div>
 
-                    <div class="form-actions">
-                        <button class="btn btn-secondary" type="button">
-                            Annuler
-                        </button>
-                        <button class="btn btn-primary" type="submit">
-                            Sauvegarder
-                        </button>
-                    </div>
-                </form>
+                        <div class="form-actions">
+                            <button class="btn btn-secondary" type="button">
+                                Annuler
+                            </button>
+                            <button class="btn btn-primary" type="submit">
+                                Sauvegarder
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
+        </main>
         <?php require_once "includes/footer.php" ?>
     </div>
 </body>

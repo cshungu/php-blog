@@ -65,9 +65,11 @@ if (count($articles)) {
 <body>
     <div class="container">
         <?php require_once "includes/header.php" ?>
-        <div class="content">
-            <h1 class="font-size: 7rem; text-align: center">Oops une erreur esr</h1>
-        </div>
+        <main>
+            <div class="content">
+                <h1 class="font-size: 7rem; text-align: center">Oops une erreur esr</h1>
+            </div>
+        </main>
         <?php require_once "includes/footer.php" ?>
     </div>
 </body>

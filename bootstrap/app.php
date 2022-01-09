@@ -19,6 +19,8 @@ use App\Database\Db;
 use App\Model\Article;
 use App\Model\Security;
 use App\Container\Container;
+use App\Model\User;
+use App\Validation\Validation;
 
 session_start();
 $routes = include_once join(DIRECTORY_SEPARATOR, [__APP__, "config", "routes.php"]);
@@ -30,8 +32,14 @@ $c['db'] = function () {
     return Db::getInstance();
 };
 $c['article'] = function () use ($c) {
-    return new Article($c->get('db'));
+    return new Article($c);
 };
 $c['security'] = function () use ($c) {
-    return new Security($c->get('db'));
+    return new Security($c);
+};
+$c['user'] = function () use ($c) {
+    return new User($c);
+};
+$c['validation'] = function () use ($c) {
+    return new Validation($c);
 };

@@ -2,7 +2,9 @@
 
 namespace App\Model;
 
-class Security
+use App\Container\Container;
+
+class Security extends AbtractModel
 {
     private \PDOStatement $_statementRegister;
     private \PDOStatement $_statementReadSession;
@@ -11,9 +13,10 @@ class Security
     private \PDOStatement $_statementCreateSession;
     private \PDOStatement $_statementDeleteSession;
 
-    function __construct(private \PDO $pdo)
+    public function __construct(Container $container)
     {
-        $this->_statementRegister = $pdo->prepare(
+        parent::__construct($container);
+        $this->_statementRegister = $this->db->prepare(
             'INSERT INTO user VALUES(
                 DEFAULT,
                 :firstname,
@@ -23,26 +26,26 @@ class Security
             )'
         );
 
-        $this->_statementReadSession = $pdo->prepare(
+        $this->_statementReadSession = $this->db->prepare(
             'SELECT * FROM session WHERE id =:id'
         );
-        $this->_statementReadUser = $pdo->prepare(
+        $this->_statementReadUser = $this->db->prepare(
             'SELECT * FROM user WHERE id= :id'
         );
-        $this->_statementReadUserFromEmail = $pdo->prepare(
+        $this->_statementReadUserFromEmail = $this->db->prepare(
             'SELECT * FROM user WHERE email= :email'
         );
-        $this->_statementCreateSession = $pdo->prepare(
+        $this->_statementCreateSession = $this->db->prepare(
             'INSERT INTO session VALUES (
                 :sessionid,
                 :userid
             )'
         );
-        $this->_statementDeleteSession = $pdo->prepare(
+        $this->_statementDeleteSession = $this->db->prepare(
             'DELETE FROM session WHERE id = :id'
         );
     }
-    function login(string $userId): void
+    public function login(string $userId): void
     {
         $sessionId = bin2hex(random_bytes(32));
         $this->_statementCreateSession->bindValue(":userid", $userId);
@@ -69,7 +72,7 @@ class Security
         );
         return;
     }
-    function register(array $user): void
+    public function register(array $user): void
     {
         $hashedPassword = password_hash($user['password'], PASSWORD_ARGON2I);
         $this->_statementRegister->bindValue(":firstname", $user['firstname']);
@@ -79,7 +82,7 @@ class Security
         $this->_statementRegister->execute();
     }
 
-    function isLoggeding(): array | false
+    public function isLoggeding(): array | false
     {
         //global $pdo;
         $sessionId = $_COOKIE['session'] ?? '';
@@ -101,9 +104,8 @@ class Security
         return $user ?? false;
     }
 
-    function logout(string $sessionId): void
+    public function logout(string $sessionId): void
     {
-        $this->_statementDeleteSession;
         $this->_statementDeleteSession->bindValue(':id', $sessionId);
         $this->_statementDeleteSession->execute();
         setcookie('session', '', time() - 1);
@@ -111,10 +113,12 @@ class Security
         return;
     }
 
-    function getUserFromEmail(string $email): array
+    public function getUserFromEmail(string $email): array
     {
         $this->_statementReadUserFromEmail->bindValue(":email", $email);
         $this->_statementReadUserFromEmail->execute();
-        return $this->_statementReadUserFromEmail->fetch();
+        $row = $this->_statementReadUserFromEmail->fetch();
+        $resultat = is_array($row) ? $row : [];
+        return $resultat;
     }
 }

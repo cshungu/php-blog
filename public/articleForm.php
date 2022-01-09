@@ -46,7 +46,6 @@ if ($id) {
     if (!$article['author'] !== $currentUser['id']) {
         //header('Location: /');
     }
-
     $title    = $article["title"];
     $image    = $article["image"];
     $category = $article["category"];
@@ -56,7 +55,6 @@ if ($id) {
 
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
     $_POST = filter_input_array(
         INPUT_POST,
         [
@@ -132,57 +130,59 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <body>
     <div class="container">
         <?php require_once "includes/header.php" ?>
-        <div class="content">
-            <div class="block p-20 form-container">
-                <h2><?php echo $id ? "Modifier" : "Ecrire" ?> un article </h2>
-                <form action="/articleForm.php<?php echo $id ? "?id=$id" : '' ?>" method="POST">
-                    <div class="form-control">
-                        <label for="title">Titre</label>
-                        <input type="text" name="title" value="<?php echo $title ?? '' ?>">
-                        <?php if ($errors["title"]) : ?>
-                            <p class="text-danger"><?php echo $errors["title"] ?></p>
-                        <?php endif; ?>
-                    </div>
-                    <div class="form-control">
-                        <label for="image">Image</label>
-                        <input type="text" name="image" value="<?php echo $image ?? '' ?>">
-                        <?php if ($errors["image"]) : ?>
-                            <p class="text-danger"><?php echo $errors["image"] ?></p>
-                        <?php endif; ?>
-                    </div>
-                    <div class="form-control">
-                        <label for="category">Catégorie</label>
-                        <select name="category" id="category">
-                            <option <?php echo !$category || $category === 'technologie' ? 'selected' : '' ?> value="technologie">
-                                Technologie
-                            </option>
-                            <option <?php echo !$category || $category === 'nature' ? 'selected' : '' ?> value="nature">
-                                Nature
-                            </option>
-                            <option <?php echo !$category || $category === 'politique' ? 'selected' : '' ?> value="politique">
-                                Politique
-                            </option>
-                        </select>
-                        <?php if ($errors["category"]) : ?>
-                            <p class="text-danger"><?php echo $errors["category"] ?></p>
-                        <?php endif; ?>
-                    </div>
-                    <div class="form-control">
-                        <label for="content">Contenu</label>
-                        <textarea name="content"><?php echo $content ?? '' ?></textarea>
-                        <?php if ($errors["content"]) : ?>
-                            <p class="text-danger"><?php echo $errors["content"] ?></p>
-                        <?php endif; ?>
-                    </div>
-                    <div class="form-actions">
-                        <button class="btn btn-secondary" type="button">Annuler</button>
-                        <button class="btn btn-primary" type="submit">
-                            <?php echo $id ? "Modifier" : "Sauvegarder" ?>
-                        </button>
-                    </div>
-                </form>
+        <main>
+            <div class="content">
+                <div class="block p-20 form-container">
+                    <h2><?php echo $id ? "Modifier" : "Ecrire" ?> un article </h2>
+                    <form action="/articleForm.php<?php echo $id ? "?id=$id" : '' ?>" method="POST">
+                        <div class="form-control">
+                            <label for="title">Titre</label>
+                            <input type="text" name="title" value="<?php echo $title ?? '' ?>">
+                            <?php if ($errors["title"]) : ?>
+                                <p class="text-danger"><?php echo $errors["title"] ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <div class="form-control">
+                            <label for="image">Image</label>
+                            <input type="text" name="image" value="<?php echo $image ?? '' ?>">
+                            <?php if ($errors["image"]) : ?>
+                                <p class="text-danger"><?php echo $errors["image"] ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <div class="form-control">
+                            <label for="category">Catégorie</label>
+                            <select name="category" id="category">
+                                <option <?php echo !$category || $category === 'technologie' ? 'selected' : '' ?> value="technologie">
+                                    Technologie
+                                </option>
+                                <option <?php echo !$category || $category === 'nature' ? 'selected' : '' ?> value="nature">
+                                    Nature
+                                </option>
+                                <option <?php echo !$category || $category === 'politique' ? 'selected' : '' ?> value="politique">
+                                    Politique
+                                </option>
+                            </select>
+                            <?php if ($errors["category"]) : ?>
+                                <p class="text-danger"><?php echo $errors["category"] ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <div class="form-control">
+                            <label for="content">Contenu</label>
+                            <textarea name="content"><?php echo $content ?? '' ?></textarea>
+                            <?php if ($errors["content"]) : ?>
+                                <p class="text-danger"><?php echo $errors["content"] ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn btn-secondary" type="button">Annuler</button>
+                            <button class="btn btn-primary" type="submit">
+                                <?php echo $id ? "Modifier" : "Sauvegarder" ?>
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
+        </main>
         <?php require_once "includes/footer.php" ?>
     </div>
 </body>

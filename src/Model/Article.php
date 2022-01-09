@@ -2,7 +2,9 @@
 
 namespace App\Model;
 
-class Article
+use App\Container\Container;
+
+class Article  extends AbtractModel
 {
     private \PDOStatement $_statementCreateOne;
     private \PDOStatement $_statementUpdateOne;
@@ -18,9 +20,10 @@ class Article
      * 
      * @return void
      */
-    public function __construct(private \PDO $pdo)
+    public function __construct(Container $container)
     {
-        $this->_statementCreateOne = $pdo->prepare(
+        parent::__construct($container);
+        $this->_statementCreateOne = $this->db->prepare(
             "INSERT INTO article (
                 title,
                 image,
@@ -36,7 +39,7 @@ class Article
             )
             "
         );
-        $this->_statementUpdateOne = $pdo->prepare(
+        $this->_statementUpdateOne = $this->db->prepare(
             "UPDATE article 
             SET
                 title = :title,
@@ -47,19 +50,19 @@ class Article
             WHERE id= :id
             "
         );
-        $this->_statementReadOne   = $pdo->prepare(
+        $this->_statementReadOne   = $this->db->prepare(
             "SELECT article.*, user.firstname, user.lastname
             FROM article LEFT JOIN user ON article.author = user.id WHERE article.id= :id"
         );
-        $this->_statementReadAll   = $pdo->prepare(
+        $this->_statementReadAll   = $this->db->prepare(
             ' SELECT article.*, user.firstname, user.lastname FROM article 
             LEFT JOIN user ON article.author = user.id
             '
         );
-        $this->_statementDeleteOne = $pdo->prepare(
+        $this->_statementDeleteOne = $this->db->prepare(
             'DELETE FROM article WHERE id =:id'
         );
-        $this->_statementReadUserAll = $pdo->prepare(
+        $this->_statementReadUserAll = $this->db->prepare(
             'SELECT * FROM article WHERE author=:authorId'
         );
     }
@@ -109,7 +112,7 @@ class Article
         $this->_statementCreateOne->bindValue(':content', $article['content']);
         $this->_statementCreateOne->bindValue(':author', $article['author']);
         $this->_statementCreateOne->execute();
-        return $this->fetchOne($this->pdo->lastInsertId('id'));
+        return $this->fetchOne($this->db->lastInsertId('id'));
     }
     public function updateOne($article): array
     {
